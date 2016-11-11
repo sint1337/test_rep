@@ -13,10 +13,10 @@ if (isset($_FILES['file'])) {
     if ($file['type'] == 'image/jpeg' || $file['type'] == 'image/png' || $file['type'] == 'image/gif') {
 //        if ($file['size'] > 10*MB) { echo '<p>Максимально разрешенный размер файла - 10 МБ</p>'; }
 //        else { copy($file['tmp_name'], $file['name']); }
-        copy($file['tmp_name'], $file['name']);
+        copy($file['tmp_name'], "images/".$file['name']);
 //        else {move_uploaded_file($_FILES['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . "images/" . $file_name); }
 //        move_uploaded_file($_FILES['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . "images/" . $file_name);
-        move_uploaded_file($file['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . "images/" . $file['name']);
+//        move_uploaded_file($file['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . "images/" . $file['name']);
     }
 }
 ?>
