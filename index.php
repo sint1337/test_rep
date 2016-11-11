@@ -9,10 +9,15 @@ header("Content-type: text/html; charset=windows1251;");
 $file = 'log.txt';
 if (isset($_FILES['file'])) {
     //Проверка файла
-    $file = $_FILES['file']['size'];
-    if ($file['type'] == 'image/jpeg' || $file['type'] == 'image/png' || $file['type'] == 'image/gif')
-        if ($file['size'] > 10*MB) { echo '<p>Максимально разрешенный размер файла - 10 МБ</p>'; }
-        else {copy($file['tmp_name'], $file['name']);}
+    $file = $_FILES['file'];
+    if ($file['type'] == 'image/jpeg' || $file['type'] == 'image/png' || $file['type'] == 'image/gif') {
+//        if ($file['size'] > 10*MB) { echo '<p>Максимально разрешенный размер файла - 10 МБ</p>'; }
+//        else { copy($file['tmp_name'], $file['name']); }
+        copy($file['tmp_name'], $file['name']);
+//        else {move_uploaded_file($_FILES['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . "images/" . $file_name); }
+//        move_uploaded_file($_FILES['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . "images/" . $file_name);
+        move_uploaded_file($file['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . "images/" . $file['name']);
+    }
 }
 ?>
 
@@ -20,19 +25,19 @@ if (isset($_FILES['file'])) {
     <input type="file" name="file">
     <input type="submit" value="Send">
 </form>
-?>
 
 //php_value upload_max_filesize 10M
 
+
+
 <?php
-echo 'Уже загруженные изображения';
  $dir = 'images/';
   $cols = 5;
   $files = scandir($dir);
   echo "<table>";
   $k = 0; // тестовая херня
   for ($i = 0; $i < count($files); $i++) {
-    if (($files[$i] != ".") && ($files[$i] != "..")) { // чтобы пропустить текущий и родительский каталоги
+    if ($files[$i] != "." && $files[$i] != "..") { // чтобы пропустить текущий и родительский каталоги
       if ($k % $cols == 0) echo "<tr>";
       echo "<td>";
       $path = $dir.$files[$i];
